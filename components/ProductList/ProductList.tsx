@@ -15,11 +15,11 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap -mx-4">
-      {products.map((product) => (
-        <div className="w-full md:w-1/3 p-4" key={product._id}>
-          <Link href={`/products/${product._id}`}>
-
+    <div className="container mx-auto">
+      <div className="flex flex-wrap -mx-4">
+        {products.map((product) => (
+          <div className="w-full md:w-1/3 p-4" key={product._id}>
+            <Link href={`/products/${product._id}`}>
               <div className="border rounded-lg overflow-hidden">
                 <div className="p-4">
                   <h2 className="font-bold text-lg">{product.name}</h2>
@@ -27,10 +27,10 @@ const ProductList = () => {
                   <p className="mt-2">${product.price}</p>
                 </div>
               </div>
-
-          </Link>
-        </div>
-      ))}
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -4,14 +4,14 @@ import axios from 'axios';
 import { Product } from '@/types/Product';
 
 const ProductDetail = ({ product }: { product: Product }) => {
-  return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>${product.price}</p>
-    </div>
-  );
-};
+    return (
+      <div className="w-3/5 mx-auto mt-8">
+        <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+        <p className="text-lg mb-6">{product.description}</p>
+        <p className="text-xl font-bold">${product.price}</p>
+      </div>
+    );
+  };
 
 const ProductPage = () => {
   const router = useRouter();

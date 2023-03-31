@@ -3,7 +3,7 @@
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { Product } from '@/types/Product';
-
+import Layout from '@/components/Layout';
 
 type Props = {
   product: Product;
@@ -17,7 +17,7 @@ const ProductDetail = ({ product }: Props) => {
         <p className="text-lg mb-4">{product.description}</p>
         <p className="text-xl font-bold">${product.price}</p>
       </div>
-
+    </Layout>
   );
 };
 
