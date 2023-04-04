@@ -16,11 +16,15 @@ const ProductDetail = ({ product }: Props) => {
   };
 
   return (
+    <>
+
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
       <p className="text-lg mb-4">{product.description}</p>
       <p className="text-xl font-bold">${product.price}</p>
-      <div className="mt-4">
+      
+    </div>
+    <div className="mt-4">
         <label className="text-lg font-bold mr-2" htmlFor="quantity">
           Quantity:
         </label>
@@ -38,7 +42,7 @@ const ProductDetail = ({ product }: Props) => {
           Add to cart
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

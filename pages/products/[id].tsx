@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Product } from '@/types/Product';
+import Layout from '@/components/Layout/Layout';
 
 const ProductDetail = ({ product }: { product: Product }) => {
     return (
@@ -30,7 +31,11 @@ const ProductPage = () => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {product && <ProductDetail product={product} />}
+    <h1>Heyy</h1>
+    
+      {product && <Layout>
+      <ProductDetail product={product}/>
+    </Layout>}
     </div>
   );
 };
