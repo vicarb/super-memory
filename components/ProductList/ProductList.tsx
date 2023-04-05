@@ -1,36 +1,46 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Link from 'next/link';
-import { Product } from '@/types/Product';
+import React, { useContext } from 'react';
+import { CartContext } from '../MyEcommerceApp/MyEcommerceApp';
 
-const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+export interface Product {
+  id: number;
+  title: string;
+  price: string;
+  description: string;
+  image: string;
+}
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get<{ data: Product[] }>('/api/products');
-      setProducts(data.data);
-    };
-    fetchProducts();
-  }, []);
+type ProductListProps = {
+  products: Product[];
+}
+
+const ProductList = ({ products }: ProductListProps) => {
+  const { cart, setCart } = useContext(CartContext);
+
+  const handleAddToCart = (product: Product) => {
+    setCart([...cart, product]);
+    console.log("cart", cart);
+    
+  };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex flex-wrap -mx-4">
-        {products.map((product) => (
-          <div className="w-full md:w-1/3 p-4" key={product._id}>
-            <Link href={`/products/${product._id}`}>
-              <div className="border rounded-lg overflow-hidden">
-                <div className="p-4">
-                  <h2 className="font-bold text-lg">{product.name}</h2>
-                  <p className="mt-2">{product.description}</p>
-                  <p className="mt-2">${product.price}</p>
-                </div>
-              </div>
-            </Link>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {products &&
+        products.map((product) => (
+          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
+            <img src={product.image} alt={product.title} className="mx-auto" />
+            <h3 className="text-lg font-medium my-2">{product.title}</h3>
+            <p className="text-gray-600">{product.description}</p>
+            <div className="mt-2 flex justify-between items-center">
+              <span className="font-bold">{product.price}</span>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                onClick={() => handleAddToCart(product)}
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         ))}
-      </div>
     </div>
   );
 };

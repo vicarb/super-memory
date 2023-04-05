@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Product } from '@/types/Product';
 import Layout from '@/components/Layout/Layout';
 
+
 const ProductDetail = ({ product }: { product: Product }) => {
     return (
       <div className="w-3/5 mx-auto mt-8">
