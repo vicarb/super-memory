@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { CartContext } from '@/context/CartContext';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -6,13 +6,22 @@ import { FiShoppingCart } from 'react-icons/fi';
 const Navbar = () => {
   const { cart } = useContext(CartContext);
   const [cartCount, setCartCount] = useState(0);
-  console.log('cart count:', cartCount);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setCartCount(cart.length);
   }, [cart]);
-  
-  
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos, visible]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -21,7 +30,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
+    <nav
+      className={`${
+        visible ? '' : 'hidden'
+      } fixed top-0 left-0 right-0 z-10 flex items-center justify-between flex-wrap bg-blue-500 p-6`}
+    >
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Link href="/" className="font-semibold text-xl tracking-tight">
           My Ecommerce App
@@ -68,6 +81,7 @@ const Navbar = () => {
               Cart ({cartCount})
             </h1>
           </Link>
+
         </div>
       </div>
     </nav>
