@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { CartContext } from '../MyEcommerceApp/MyEcommerceApp';
+import { CartContext } from '@/context/CartContext';
 
 export interface Product {
   id: number;
@@ -23,7 +23,8 @@ const ProductList = ({ products }: ProductListProps) => {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <div className="container mx-auto py-8">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
       {products &&
         products.map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
@@ -41,6 +42,7 @@ const ProductList = ({ products }: ProductListProps) => {
             </div>
           </div>
         ))}
+    </div>
     </div>
   );
 };
