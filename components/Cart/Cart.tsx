@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
 import axios, {AxiosError} from 'axios';
 
@@ -13,6 +13,51 @@ type Product = {
 
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
+
+
+
+  const handleCheckout = async () => {
+    setLoading(true);
+
+    try {
+
+      const response = await axios.post('/api/checkout', {
+        total: calculateTotal(cart),
+        sessionId: Math.floor(Math.random() * 1000000000).toString(),
+        buyOrder: Math.floor(Math.random() * 1000000000).toString(),
+        returnUrl: 'http://127.0.0.1:3000/',
+      });
+      console.log("this is response", response.data);
+      const url = response.data.url;
+      const token = response.data.token;
+  
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = url;
+  
+      const tokenInput = document.createElement('input');
+      tokenInput.type = 'hidden';
+      tokenInput.name = 'token_ws';
+      tokenInput.value = token;
+  
+      form.appendChild(tokenInput);
+  
+      document.body.appendChild(form);
+
+      form.submit();
+      
+      // window.location = response.data.url;
+    } catch (error: AxiosError | any) {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.data);
+        console.error(error.response.status);
+        console.error(error.response.headers);
+      }
+    }
+    setLoading(false);
+  };
   console.log('cart items:', cart); 
 
   const addItemToCart = (item: Product) => {
@@ -32,24 +77,7 @@ const Cart = () => {
     return total.toFixed(2);
   };
   
-  const handleCheckout = async () => {
-    try {
-      const response = await axios.post('http://127.0.0.1:3001/api/checkout', {
-        total: calculateTotal(cart),
-        sessionId: Math.floor(Math.random() * 1000000000).toString(),
-        buyOrder: Math.floor(Math.random() * 1000000000).toString(),
-        returnUrl: 'http://127.0.0.1:3000/',
-      });
-      window.location = response.data.url;
-    } catch (error: AxiosError | any) {
-      console.error(error);
-      if (error.response) {
-        console.error(error.response.data);
-        console.error(error.response.status);
-        console.error(error.response.headers);
-      }
-    }
-  };
+ 
   
   
   return (
@@ -76,8 +104,9 @@ const Cart = () => {
         <p className="text-gray-600">${calculateTotal(cart)}</p>
       </div>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleCheckout}>
-        Checkout
-      </button>
+  {loading ? "Loading..." : "Checkout"}
+</button>
+
     </div>
   )}
 </div>
