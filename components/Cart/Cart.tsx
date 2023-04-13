@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
 import axios, {AxiosError} from 'axios';
+import Link from 'next/link';
 
 
 type Product = {
@@ -9,6 +10,7 @@ type Product = {
   price: string;
   description: string;
   image: string;
+  quantity: number;
 };
 
 const Cart = () => {
@@ -156,12 +158,14 @@ const Cart = () => {
         <p className="font-medium">Total:</p>
         <p className="text-gray-600">${calculateTotal(cart)}</p>
       </div>
+      <Link href="/checkout">
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-        onClick={handleCheckout}
+
       >
         {loading ? "Loading..." : "Checkout"}
       </button>
+      </Link>
     </div>
   )}
 </div>
