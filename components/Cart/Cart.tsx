@@ -26,7 +26,7 @@ const Cart = () => {
         total: calculateTotal(cart),
         sessionId: Math.floor(Math.random() * 1000000000).toString(),
         buyOrder: Math.floor(Math.random() * 1000000000).toString(),
-        returnUrl: 'http://127.0.0.1:3000/',
+        returnUrl: 'http://127.0.0.1:3000/success',
       });
       console.log("this is response", response.data);
       const url = response.data.url;
