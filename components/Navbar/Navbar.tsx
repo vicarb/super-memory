@@ -68,10 +68,10 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/products"
+            href="/checkout"
             className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
           >
-            Products
+            Checkout
           </Link>
         </div>
         <div className="flex items-center">
@@ -81,6 +81,7 @@ const Navbar = () => {
               Cart ({cartCount})
             </h1>
           </Link>
+          
 
         </div>
       </div>

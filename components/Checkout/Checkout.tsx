@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+
+import { CartContext } from '@/context/CartContext';
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,14 @@ const Checkout = () => {
     country: '',
     zip: ''
   })
+
+  const { cart } = useContext(CartContext);
+
+  // calculate the total price of all cart items
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   const handleInputChange = e => {
     const { name, value } = e.target

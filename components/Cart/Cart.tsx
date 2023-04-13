@@ -60,19 +60,35 @@ const Cart = () => {
   };
   console.log('cart items:', cart); 
 
+
   const addItemToCart = (item: Product) => {
-    setCart([...cart, item]);
+    const existingCartItem = cart.find((cartItem) => cartItem.id === item.id);
+    if (existingCartItem) {
+      const updatedCart = cart.map((cartItem) =>
+        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+      );
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
   };
 
   const removeItemFromCart = (itemToRemove: Product) => {
-    setCart(cart.filter((item) => item.id !== itemToRemove.id));
+    const existingCartItem = cart.find((cartItem) => cartItem.id === itemToRemove.id);
+    if (existingCartItem && existingCartItem.quantity > 1) {
+      const updatedCart = cart.map((cartItem) =>
+        cartItem.id === itemToRemove.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+      );
+      setCart(updatedCart);
+    } else {
+      setCart(cart.filter((item) => item.id !== itemToRemove.id));
+    }
   };
-
 
   const calculateTotal = (items: Product[]) => {
     const total = cart.reduce((acc, item) => {
       const price = parseFloat(item.price.slice(1)); // remove the $ symbol and convert to a float
-      return acc + price;
+      return acc + price * item.quantity;
     }, 0);
     return total.toFixed(2);
   };
@@ -87,12 +103,28 @@ const Cart = () => {
     <p>No items in cart.</p>
   ) : (
     <div>
-      {cart.map((item) => (
+      {cart.map((item, index) => (
         <div key={item.id} className="flex items-center py-2">
           <img src={item.image} alt={item.title} className="h-10 w-10" />
           <div className="ml-2">
             <p className="font-medium">{item.title}</p>
             <p className="text-gray-600">{item.price}</p>
+          </div>
+          <div className="ml-auto flex items-center">
+            <button
+              className="text-gray-500"
+              onClick={() => decreaseQuantity(index)}
+              disabled={item.quantity === 1}
+            >
+              -
+            </button>
+            <p className="mx-2">{item.quantity}</p>
+            <button
+              className="text-gray-500"
+              onClick={() => increaseQuantity(index)}
+            >
+              +
+            </button>
           </div>
           <button className="ml-auto text-red-600" onClick={() => removeItemFromCart(item)}>
             Remove
@@ -103,13 +135,16 @@ const Cart = () => {
         <p className="font-medium">Total:</p>
         <p className="text-gray-600">${calculateTotal(cart)}</p>
       </div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleCheckout}>
-  {loading ? "Loading..." : "Checkout"}
-</button>
-
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        onClick={handleCheckout}
+      >
+        {loading ? "Loading..." : "Checkout"}
+      </button>
     </div>
   )}
 </div>
+
 
   );
 };
