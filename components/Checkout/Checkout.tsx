@@ -21,51 +21,111 @@ const Checkout = () => {
     console.log(formData)
   }
   return(
-    <div className="container mx-auto py-8 mt-16">
-  <div className="border rounded-md shadow-md">
-    <div className="flex justify-between border-b pb-4 px-8">
-      <h1 className="font-bold text-2xl py-4">Checkout</h1>
-      <button className="text-blue-500 py-4">Back to cart</button>
+    <div class="container mx-auto p-4 mt-16">
+  <div class="md:flex md:justify-center">
+    <div class="md:w-1/2 px-8 py-6">
+      <h2 class="font-bold text-lg mb-2">Delivery Information</h2>
+      <form class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 sm:col-span-1">
+          <label for="name" class="block text-gray-700 font-bold mb-2">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            class="form-input w-full"
+            placeholder="John Doe"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="email" class="block text-gray-700 font-bold mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            class="form-input w-full"
+            placeholder="johndoe@example.com"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="address" class="block text-gray-700 font-bold mb-2">
+            Address
+          </label>
+          <input
+            id="address"
+            type="text"
+            class="form-input w-full"
+            placeholder="123 Main St"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="city" class="block text-gray-700 font-bold mb-2">
+            City
+          </label>
+          <input
+            id="city"
+            type="text"
+            class="form-input w-full"
+            placeholder="San Francisco"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="state" class="block text-gray-700 font-bold mb-2">
+            State
+          </label>
+          <input
+            id="state"
+            type="text"
+            class="form-input w-full"
+            placeholder="CA"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="zip" class="block text-gray-700 font-bold mb-2">
+            ZIP
+          </label>
+          <input
+            id="zip"
+            type="text"
+            class="form-input w-full"
+            placeholder="94103"
+          />
+        </div>
+        <div class="col-span-2 mt-4">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Pay Now
+          </button>
+        </div>
+      </form>
     </div>
-    <form className="px-8 pt-6 pb-8">
-      <div className="mb-4">
-        <label htmlFor="name" className="font-bold mb-2 block">Name</label>
-        <input type="text" name="name" id="name" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="font-bold mb-2 block">Email</label>
-        <input type="email" name="email" id="email" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="address" className="font-bold mb-2 block">Address</label>
-        <input type="text" name="address" id="address" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="city" className="font-bold mb-2 block">City</label>
-        <input type="text" name="city" id="city" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="country" className="font-bold mb-2 block">Country</label>
-        <input type="text" name="country" id="country" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="zip" className="font-bold mb-2 block">ZIP Code</label>
-        <input type="text" name="zip" id="zip" className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      </div>
-      <div className="flex justify-between border-t pt-6 mt-6">
-        <div>
-          <h2 className="font-bold text-lg">Order Summary</h2>
-          <p className="text-gray-500">3 items</p>
+    <div class="md:w-1/2 px-8 py-6">
+      <div class="border rounded-md shadow-md p-4">
+        <h2 class="font-bold text-lg mb-2">Order Summary</h2>
+        <div class="flex justify-between border-t pt-2 mt-2">
+          <p class="text-gray-500">3 items</p>
+          <p class="text-gray-500">$50</p>
         </div>
-        <div className="text-right">
-          <p className="text-gray-500">Total</p>
-          <h2 className="font-bold text-xl">$50</h2>
+        <div class="flex justify-between border-t pt-2 mt-2">
+          <p class="text-gray-200">Hello</p>
+          </div>
+        <div class="flex justify-between border-t pt-2 mt-2">
+          <p class="text-gray-500">Shipping</p>
+          <p class="text-gray-500">$5</p>
+        </div>
+        <div class="flex justify-between border-t pt-2 mt-2">
+          <p class="text-gray-500">Tax</p>
+          <p class="text-gray-500">$2.5</p>
+        </div>
+        <div class="flex justify-between border-t pt-2 mt-2">
+          <p class="font-bold">Total</p>
+          <p class="font-bold">$57.5</p>
         </div>
       </div>
-      <div className="mt-8">
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Pay Now</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
