@@ -15,7 +15,28 @@ const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
 
-
+  const decreaseQuantity = (index: number) => {
+    const newCart = [...cart];
+    if (newCart[index].quantity === 1) {
+      removeItemFromCart(newCart[index]);
+    } else {
+      newCart[index] = {
+        ...newCart[index],
+        quantity: newCart[index].quantity - 1,
+      };
+      setCart(newCart);
+    }
+  };
+  
+  const increaseQuantity = (index: number) => {
+    const newCart = [...cart];
+    newCart[index] = {
+      ...newCart[index],
+      quantity: newCart[index].quantity + 1,
+    };
+    setCart(newCart);
+  };
+  
 
   const handleCheckout = async () => {
     setLoading(true);
