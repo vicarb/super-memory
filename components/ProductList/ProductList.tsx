@@ -17,11 +17,20 @@ const ProductList = ({ products }: ProductListProps) => {
   const { cart, setCart } = useContext(CartContext);
 
   const handleAddToCart = (product: Product) => {
-    setCart([...cart, product]);
-    console.log("cart", cart);
-    
+    const existingProductIndex = cart.findIndex((p) => p.id === product.id);
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity++;
+      setCart(updatedCart);
+    } else {
+      const newProduct = {
+        ...product,
+        quantity: 1,
+      };
+      setCart([...cart, newProduct]);
+    }
   };
-
+  
   return (
     <div className="container mx-auto py-8">
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
