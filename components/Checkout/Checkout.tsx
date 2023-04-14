@@ -52,7 +52,7 @@ const Checkout = () => {
         total: calculateTotal(cart),
         sessionId: Math.floor(Math.random() * 1000000000).toString(),
         buyOrder: Math.floor(Math.random() * 1000000000).toString(),
-        returnUrl: 'http://127.0.0.1:3000/success',
+        returnUrl: 'https://vicarb.github.io/super-memory/success',
       });
       console.log("this is response", response.data);
       const url = response.data.url;
