@@ -128,7 +128,7 @@ const Cart = () => {
     <div>
       {cart.map((item, index) => (
         <div key={item.id} className="flex items-center py-2">
-          <img src={item.image} alt={item.title} className="h-10 w-10" />
+          <img src="https://cdn.shopify.com/s/files/1/0352/4571/9597/products/River_Black_Front_S_close-up_540x.jpg?v=1657634429" alt={item.title} className="h-10 w-10" />
           <div className="ml-2">
             <p className="font-medium">{item.title}</p>
             <p className="text-gray-600">{item.price}</p>
