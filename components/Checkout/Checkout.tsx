@@ -1,6 +1,15 @@
 import { useState, useContext } from 'react'
+import axios, {AxiosError} from 'axios';
 
 import { CartContext } from '@/context/CartContext';
+type Product = {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    image: string;
+    quantity: number
+  };
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -11,14 +20,69 @@ const Checkout = () => {
     country: '',
     zip: ''
   })
+  const [loading, setLoading] = useState(false)
 
   const { cart } = useContext(CartContext);
 
   // calculate the total price of all cart items
+
+
+  const calculateTotal = (items: Product[]) => {
+    const total = cart.reduce((acc, item) => {
+      const price = parseFloat(item.price.slice(1)); // remove the $ symbol and convert to a float
+      return acc + price * item.quantity;
+    }, 0);
+    return total.toFixed(2);
+  };
+
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+  const deliveryFee = 5;
+  const totalAmount = totalPrice + deliveryFee;
+
+  const handleCheckout = async () => {
+    setLoading(true);
+
+    try {
+
+      const response = await axios.post('/api/checkout', {
+        total: calculateTotal(cart),
+        sessionId: Math.floor(Math.random() * 1000000000).toString(),
+        buyOrder: Math.floor(Math.random() * 1000000000).toString(),
+        returnUrl: 'http://127.0.0.1:3000/success',
+      });
+      console.log("this is response", response.data);
+      const url = response.data.url;
+      const token = response.data.token;
+  
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = url;
+  
+      const tokenInput = document.createElement('input');
+      tokenInput.type = 'hidden';
+      tokenInput.name = 'token_ws';
+      tokenInput.value = token;
+  
+      form.appendChild(tokenInput);
+  
+      document.body.appendChild(form);
+
+      form.submit();
+      
+      // window.location = response.data.url;
+    } catch (error: AxiosError | any) {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.data);
+        console.error(error.response.status);
+        console.error(error.response.headers);
+      }
+    }
+    setLoading(false);
+  };
 
   const handleInputChange = e => {
     const { name, value } = e.target
@@ -107,24 +171,59 @@ const Checkout = () => {
         </div>
       </div>
       <div className="w-full md:w-1/2 px-8">
-  <div className="border rounded-md shadow-md p-4">
-    <h2 className="font-bold text-lg mb-2">Order Summary</h2>
-    <div className="flex justify-between border-t pt-2 mt-2">
-      <p className="text-gray-500">3 items</p>
-      <p className="text-gray-500">$50</p>
+  
+
+
+
+
+
+
+      <div className="w-full md:w-1/2 px-8">
+      <div className="border rounded-md shadow-md p-4">
+        <h2 className="font-bold text-lg mb-2">Order Summary</h2>
+        {cart.map((item) => (
+          <div key={item.id} className="flex justify-between border-t pt-2 mt-2">
+            <p className="text-gray-500">{item.title} x {item.quantity} </p>
+
+            <p className="text-gray-500">${(parseFloat(item.price.slice(1)) * item.quantity).toFixed(2)}</p>
+
+            
+          </div>
+        ))}
+        <div className="flex justify-between border-t pt-2 mt-2">
+          <p className="text-gray-500">Delivery</p>
+          <p className="text-gray-500">$0</p>
+        </div>
+        <div className="flex justify-between border-t pt-2 mt-2">
+          <p className="text-gray-500 font-bold">Total</p>
+          <p className="text-gray-500 font-bold">${calculateTotal(cart)}</p>
+        </div>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onClick={handleCheckout}
+        >
+          {loading ? "Loading..." : "Checkout"}
+        </button>
+      </div>
     </div>
-    <div className="flex justify-between border-t pt-2 mt-2">
-      <p className="text-gray-500">Delivery</p>
-      <p className="text-gray-500">$5</p>
-    </div>
-    <div className="flex justify-between border-t pt-2 mt-2">
-      <p className="text-gray-500 font-bold">Total</p>
-      <p className="text-gray-500 font-bold">$55</p>
-    </div>
-    <button className="bg-blue-500 text-white font-bold py-2 px-4 mt-4 rounded-md hover:bg-blue-600">
-      Pay Now
-    </button>
-  </div>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
 </div>
 </div>
 </div>
