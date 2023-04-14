@@ -5,7 +5,7 @@ import { CartContext } from '@/context/CartContext';
 type Product = {
     id: number;
     title: string;
-    price: number;
+    price: string;
     description: string;
     image: string;
     quantity: number
@@ -36,9 +36,10 @@ const Checkout = () => {
   };
 
   const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + parseFloat(item.price.slice(1)) * item.quantity,
     0
   );
+  
   const deliveryFee = 5;
   const totalAmount = totalPrice + deliveryFee;
 
@@ -47,7 +48,7 @@ const Checkout = () => {
 
     try {
 
-      const response = await axios.post('/api/checkout', {
+      const response = await axios.post('https://singular-marzipan-df9366.netlify.app/api/checkout', {
         total: calculateTotal(cart),
         sessionId: Math.floor(Math.random() * 1000000000).toString(),
         buyOrder: Math.floor(Math.random() * 1000000000).toString(),
@@ -84,15 +85,15 @@ const Checkout = () => {
     setLoading(false);
   };
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
+  
 
-  const handleFormSubmit = e => {
-    e.preventDefault()
-    // Here you can trigger the function of your third-party API to process the payment
-    console.log(formData)
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // rest of the function code
   }
   return(
     <div className="container mx-auto mt-24">

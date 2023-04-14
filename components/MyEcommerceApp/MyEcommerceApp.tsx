@@ -7,6 +7,7 @@ import { Product } from '@/types/Product';
 
 const mockProducts: Product[] = [
   {
+    quantity:1,
     id: 1,
     title: 'Product 1',
     price: '$10.00',
@@ -14,6 +15,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 2,
     title: 'Product 2',
     price: '$20.00',
@@ -21,6 +23,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 3,
     title: 'Product 3',
     price: '$30.00',
@@ -28,6 +31,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 4,
     title: 'Product 4',
     price: '$40.00',
@@ -35,6 +39,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 5,
     title: 'Product 5',
     price: '$50.00',
@@ -42,6 +47,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 6,
     title: 'Product 6',
     price: '$60.00',
@@ -49,6 +55,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 7,
     title: 'Product 7',
     price: '$70.00',
@@ -56,6 +63,7 @@ const mockProducts: Product[] = [
     image: 'https://via.placeholder.com/150',
   },
   {
+    quantity:1,
     id: 8,
     title: 'Product 8',
     price: '$80.00',
