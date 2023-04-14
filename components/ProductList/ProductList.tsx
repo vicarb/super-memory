@@ -37,7 +37,7 @@ const ProductList = ({ products }: ProductListProps) => {
       {products &&
         products.map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
-            <img src={product.image} alt={product.title} className="mx-auto" />
+            <img src="https://cdn.shopify.com/s/files/1/0352/4571/9597/products/River_Black_Front_S_close-up_540x.jpg?v=1657634429" alt={product.title} className="mx-auto" />
             <h3 className="text-lg font-medium my-2">{product.title}</h3>
             <p className="text-gray-600">{product.description}</p>
             <div className="mt-2 flex justify-between items-center">
