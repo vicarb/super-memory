@@ -5,7 +5,7 @@ import { CartContext } from '@/context/CartContext';
 import CenteredHeader from '../CenteredHeader/CenteredHeader';
 import { Product } from '@/types/Product';
 
-const mockProducts: Product[] = [
+export const mockProducts: Product[] = [
   {
     quantity:1,
     id: 1,
