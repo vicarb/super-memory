@@ -3,11 +3,14 @@ import { Product } from '@/types/Product';
 import { mockProducts } from '@/components/MyEcommerceApp/MyEcommerceApp';
 import { log } from 'console';
 import { mock } from 'node:test';
-
+import { motion } from 'framer-motion';
+import { useContext } from 'react';
+import { CartContext } from '@/context/CartContext';
 
 
 
 const ProductDetail = () => {
+  const { cart, setCart } = useContext(CartContext);
   const router = useRouter();
   const { id } = router.query;
   console.log("id", id);
@@ -17,6 +20,20 @@ const ProductDetail = () => {
   const product: Product | undefined  = mockProducts.find((p) => p.id === parseInt(id as string));
   console.log("product",product);
   
+  const handleAddToCart = (product: Product) => {
+    const existingProductIndex = cart.findIndex((p) => p.id === product.id);
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity++;
+      setCart(updatedCart);
+    } else {
+      const newProduct = {
+        ...product,
+        quantity: 1,
+      };
+      setCart([...cart, newProduct]);
+    }
+  };
 
   if (!product) {
     return <div>Product not found</div>;
@@ -36,7 +53,7 @@ const ProductDetail = () => {
       </div>
       
       <div className="w-full lg:w-1/2 lg:pl-10">
-        <h1 className="text-4xl font-bold mb-4 text-xl">{product.title}</h1>
+        <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
         <p className="text-gray-700 text-lg mb-6 ">{product.description}</p>
         <div className="flex items-center mb-8">
           <span className="text-3xl font-bold">{product.price}</span>
