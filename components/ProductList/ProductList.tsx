@@ -34,7 +34,7 @@ const ProductList = ({ products }: ProductListProps) => {
   };
   
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto pb-8">
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
       {products &&
         products.map((product) => (
