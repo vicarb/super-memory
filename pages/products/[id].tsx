@@ -4,18 +4,23 @@ import { mockProducts } from '@/components/MyEcommerceApp/MyEcommerceApp';
 import { log } from 'console';
 import { mock } from 'node:test';
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { CartContext } from '@/context/CartContext';
 
 
 
 const ProductDetail = () => {
   const { cart, setCart } = useContext(CartContext);
+  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   console.log("id", id);
   console.log(mockProducts);
   
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
 
   const product: Product | undefined  = mockProducts.find((p) => p.id === parseInt(id as string));
   console.log("product",product);
@@ -41,7 +46,12 @@ const ProductDetail = () => {
 
   return (
     <>
-    <div className="mt-24 container mx-auto my-10 px-4 lg:px-0">
+
+    <div
+    className={`mt-24 container mx-auto my-10 px-4 lg:px-0 ${
+      isLoaded ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'
+    }`}
+  >
     <div className="mt-24 flex flex-col lg:flex-row items-center">
       <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
         <img
