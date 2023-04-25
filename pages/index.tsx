@@ -10,6 +10,7 @@ import MyEcommerceApp from '@/components/MyEcommerceApp/MyEcommerceApp'
 import Navbar from '@/components/Navbar/Navbar'
 import Footer from '@/components/Footer/Footer'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 const mockData = [
@@ -79,7 +80,7 @@ export default function Home() {
 
 
 
-
+>
 
       <MyEcommerceApp/>
 
