@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
 import Link from 'next/link';
+import Tilt from 'react-parallax-tilt';
 
 export interface Product {
   id: number;
@@ -37,7 +38,7 @@ const ProductList = ({ products }: ProductListProps) => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
       {products &&
         products.map((product) => (
-          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
+          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md scale-90 hover:scale-95 transition duration-300">
           <Link href={`/products/${product.id}`}>
             <img src="https://cdn.shopify.com/s/files/1/0352/4571/9597/products/River_Black_Front_S_close-up_540x.jpg?v=1657634429" alt={product.title} className="mx-auto" />
             <h3 className="text-lg font-medium my-2">{product.title}</h3>
